@@ -131,7 +131,7 @@ def test_recurrent_hid_init_layer_eval():
     # copy network parameters from l_rec_inp_layer to l_rec_nparray
     l_il_param = dict([(p.name, p) for p in l_rec_inp_layer.get_params()])
     l_rn_param = dict([(p.name, p) for p in l_rec_nparray.get_params()])
-    for k, v in l_rn_param.items():
+    for k, v in list(l_rn_param.items()):
         if k in l_il_param:
             v.set_value(l_il_param[k].get_value())
 
@@ -662,7 +662,7 @@ def test_lstm_hid_init_layer_eval():
     # copy network parameters from l_rec_inp_layer to l_rec_nparray
     l_il_param = dict([(p.name, p) for p in l_rec_inp_layer.get_params()])
     l_rn_param = dict([(p.name, p) for p in l_rec_nparray.get_params()])
-    for k, v in l_rn_param.items():
+    for k, v in list(l_rn_param.items()):
         if k in l_il_param:
             v.set_value(l_il_param[k].get_value())
 
@@ -958,7 +958,7 @@ def test_gru_hid_init_layer_eval():
     # copy network parameters from l_rec_inp_layer to l_rec_nparray
     l_il_param = dict([(p.name, p) for p in l_rec_inp_layer.get_params()])
     l_rn_param = dict([(p.name, p) for p in l_rec_nparray.get_params()])
-    for k, v in l_rn_param.items():
+    for k, v in list(l_rn_param.items()):
         if k in l_il_param:
             v.set_value(l_il_param[k].get_value())
 

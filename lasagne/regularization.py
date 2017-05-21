@@ -160,7 +160,7 @@ def regularize_layer_params_weighted(layers, penalty,
     return sum(coeff * apply_penalty(layer.get_params(**tags),
                                      penalty,
                                      **kwargs)
-               for layer, coeff in layers.items()
+               for layer, coeff in list(layers.items())
                )
 
 

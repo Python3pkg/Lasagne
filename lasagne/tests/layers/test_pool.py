@@ -9,7 +9,7 @@ from lasagne.utils import floatX
 def max_pool_1d(data, pool_size, stride=None):
     stride = pool_size if stride is None else stride
 
-    idx = range(data.shape[-1])
+    idx = list(range(data.shape[-1]))
     used_idx = set([])
     idx_sets = []
 

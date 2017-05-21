@@ -208,7 +208,7 @@ class NINLayer(Layer):
         # cf * bc01... = fb01...
         out_r = T.tensordot(self.W, input, axes=[[0], [1]])
         # input dims to broadcast over
-        remaining_dims = range(2, input.ndim)
+        remaining_dims = list(range(2, input.ndim))
         # bf01...
         out = out_r.dimshuffle(1, 0, *remaining_dims)
 
@@ -217,7 +217,7 @@ class NINLayer(Layer):
         else:
             if self.untie_biases:
                 # no broadcast
-                remaining_dims_biases = range(1, input.ndim - 1)
+                remaining_dims_biases = list(range(1, input.ndim - 1))
             else:
                 remaining_dims_biases = ['x'] * (input.ndim - 2)  # broadcast
             b_shuffled = self.b.dimshuffle('x', 0, *remaining_dims_biases)

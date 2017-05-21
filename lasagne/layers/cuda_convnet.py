@@ -625,7 +625,7 @@ class NINLayer_c01b(Layer):
             activation = out
         else:
             if self.untie_biases:
-                bias_axes = range(input.ndim - 1) + ['x']
+                bias_axes = list(range(input.ndim - 1)) + ['x']
             else:
                 bias_axes = [0] + (['x'] * (input.ndim - 1))
             b_shuffled = self.b.dimshuffle(bias_axes)

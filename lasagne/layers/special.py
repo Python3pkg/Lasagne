@@ -111,7 +111,7 @@ class BiasLayer(Layer):
 
     def get_output_for(self, input, **kwargs):
         if self.b is not None:
-            bias_axes = iter(range(self.b.ndim))
+            bias_axes = iter(list(range(self.b.ndim)))
             pattern = ['x' if input_axis in self.shared_axes
                        else next(bias_axes)
                        for input_axis in range(input.ndim)]
@@ -175,7 +175,7 @@ class ScaleLayer(Layer):
             scales, shape, 'scales', regularizable=False)
 
     def get_output_for(self, input, **kwargs):
-        axes = iter(range(self.scales.ndim))
+        axes = iter(list(range(self.scales.ndim)))
         pattern = ['x' if input_axis in self.shared_axes
                    else next(axes) for input_axis in range(input.ndim)]
         return input * self.scales.dimshuffle(*pattern)
@@ -1021,7 +1021,7 @@ class ParametricRectifierLayer(Layer):
                                     regularizable=False)
 
     def get_output_for(self, input, **kwargs):
-        axes = iter(range(self.alpha.ndim))
+        axes = iter(list(range(self.alpha.ndim)))
         pattern = ['x' if input_axis in self.shared_axes
                    else next(axes)
                    for input_axis in range(input.ndim)]

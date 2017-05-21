@@ -207,7 +207,7 @@ def apply_momentum(updates, params=None, momentum=0.9):
     momentum : Shortcut applying momentum to SGD updates
     """
     if params is None:
-        params = updates.keys()
+        params = list(updates.keys())
     updates = OrderedDict(updates)
 
     for param in params:
@@ -300,7 +300,7 @@ def apply_nesterov_momentum(updates, params=None, momentum=0.9):
     nesterov_momentum : Shortcut applying Nesterov momentum to SGD updates
     """
     if params is None:
-        params = updates.keys()
+        params = list(updates.keys())
     updates = OrderedDict(updates)
 
     for param in params:

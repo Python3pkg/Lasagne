@@ -6,7 +6,7 @@ sum of two numbers in a sequence of random numbers sampled uniformly from
 [0, 1] based on a separate marker sequence.
 '''
 
-from __future__ import print_function
+
 
 
 import numpy as np

@@ -269,7 +269,7 @@ class DimshuffleLayer(Layer):
                 o = 1
             output_shape.append(o)
 
-        for i, (dim_size, used) in enumerate(zip(input_shape, dims_used)):
+        for i, (dim_size, used) in enumerate(list(zip(input_shape, dims_used))):
             if not used and dim_size != 1 and dim_size is not None:
                 raise ValueError(
                     "pattern attempted to collapse dimension "
@@ -385,7 +385,7 @@ class SliceLayer(Layer):
             del output_shape[self.axis]
         elif input_shape[self.axis] is not None:
             output_shape[self.axis] = len(
-                range(*self.slice.indices(input_shape[self.axis])))
+                list(range(*self.slice.indices(input_shape[self.axis]))))
         else:
             output_shape[self.axis] = None
         return tuple(output_shape)

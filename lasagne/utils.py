@@ -2,6 +2,7 @@ import numpy as np
 
 import theano
 import theano.tensor as T
+import collections
 
 
 def floatX(arr):
@@ -225,7 +226,7 @@ def inspect_kwargs(func):
         return spec.args[-len(spec.defaults):] if spec.defaults else []
     else:  # pragma: no cover
         params = signature(func).parameters
-        return [p.name for p in params.values() if p.default is not p.empty]
+        return [p.name for p in list(params.values()) if p.default is not p.empty]
 
 
 def compute_norms(array, norm_axes=None):
@@ -360,7 +361,7 @@ def create_param(spec, shape, name=None):
             "Tried to create param with shape=%r, name=%r") % (shape, name))
 
     err_prefix = "cannot initialize parameter %s: " % name
-    if callable(spec):
+    if isinstance(spec, collections.Callable):
         spec = spec(shape)
         err_prefix += "the %s returned by the provided callable"
     else:
@@ -446,7 +447,7 @@ def unroll_scan(fn, sequences, outputs_info, non_sequences, n_steps,
             sequences = [sequences]
 
         # When backwards reverse the recursion direction
-        counter = range(n_steps)
+        counter = list(range(n_steps))
         if go_backwards:
             counter = counter[::-1]
 
@@ -470,7 +471,7 @@ def unroll_scan(fn, sequences, outputs_info, non_sequences, n_steps,
         # [output21, output22,...output2n],...]
         output_scan = []
         for i in range(len(output[0])):
-            l = map(lambda x: x[i], output)
+            l = [x[i] for x in output]
             output_scan.append(T.stack(*l))
 
         return output_scan

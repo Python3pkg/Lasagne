@@ -395,7 +395,7 @@ class CustomRecurrentLayer(MergeLayer):
         # Input should be provided as (n_batch, n_time_steps, n_features)
         # but scan requires the iterable dimension to be first
         # So, we need to dimshuffle to (n_time_steps, n_batch, n_features)
-        input = input.dimshuffle(1, 0, *range(2, input.ndim))
+        input = input.dimshuffle(1, 0, *list(range(2, input.ndim)))
         seq_len, num_batch = input.shape[0], input.shape[1]
 
         if self.precompute_input:
@@ -495,7 +495,7 @@ class CustomRecurrentLayer(MergeLayer):
             hid_out = hid_out[-1]
         else:
             # dimshuffle back to (n_batch, n_time_steps, n_features))
-            hid_out = hid_out.dimshuffle(1, 0, *range(2, hid_out.ndim))
+            hid_out = hid_out.dimshuffle(1, 0, *list(range(2, hid_out.ndim)))
 
             # if scan is backward reverse the output
             if self.backwards:
@@ -601,7 +601,7 @@ class RecurrentLayer(CustomRecurrentLayer):
             basename = kwargs['name'] + '.'
             # Create a separate version of kwargs for the contained layers
             # which does not include 'name'
-            layer_kwargs = dict((key, arg) for key, arg in kwargs.items()
+            layer_kwargs = dict((key, arg) for key, arg in list(kwargs.items())
                                 if key != 'name')
         else:
             basename = ''

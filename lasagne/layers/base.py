@@ -103,13 +103,13 @@ class Layer(object):
         """
         result = list(self.params.keys())
 
-        only = set(tag for tag, value in tags.items() if value)
+        only = set(tag for tag, value in list(tags.items()) if value)
         if only:
             # retain all parameters that have all of the tags in `only`
             result = [param for param in result
                       if not (only - self.params[param])]
 
-        exclude = set(tag for tag, value in tags.items() if not value)
+        exclude = set(tag for tag, value in list(tags.items()) if not value)
         if exclude:
             # retain all parameters that have none of the tags in `exclude`
             result = [param for param in result
@@ -235,7 +235,7 @@ class Layer(object):
         # parameters should be trainable and regularizable by default
         tags['trainable'] = tags.get('trainable', True)
         tags['regularizable'] = tags.get('regularizable', True)
-        self.params[param] = set(tag for tag, value in tags.items() if value)
+        self.params[param] = set(tag for tag, value in list(tags.items()) if value)
 
         return param
 

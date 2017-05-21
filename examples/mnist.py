@@ -12,7 +12,7 @@ More in-depth examples and reproductions of paper results are maintained in
 a separate repository: https://github.com/Lasagne/Recipes
 """
 
-from __future__ import print_function
+
 
 import sys
 import os
@@ -32,7 +32,7 @@ import lasagne
 def load_dataset():
     # We first define a download function, supporting both Python 2 and 3.
     if sys.version_info[0] == 2:
-        from urllib import urlretrieve
+        from urllib.request import urlretrieve
     else:
         from urllib.request import urlretrieve
 

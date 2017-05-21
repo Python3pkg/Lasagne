@@ -229,7 +229,7 @@ def autocrop_array_shapes(input_shapes, cropping):
             cropping = list(cropping) + \
                          [None] * (ndim - len(cropping))
 
-        for sh, cr in zip(zip(*input_shapes), cropping):
+        for sh, cr in zip(list(zip(*input_shapes)), cropping):
             if cr is None:
                 result.append(sh)
             elif cr in {'lower', 'center', 'upper'}:
@@ -278,7 +278,7 @@ class ConcatLayer(MergeLayer):
             axis = self.axis if self.axis >= 0 else len(shape1) + self.axis
             return (len(shape1) == len(shape2) and
                     all(i == axis or s1 is None or s2 is None or s1 == s2
-                        for i, (s1, s2) in enumerate(zip(shape1, shape2))))
+                        for i, (s1, s2) in enumerate(list(zip(shape1, shape2)))))
 
         # Check for compatibility with inferred output shape
         if not all(match(shape, output_shape) for shape in input_shapes):

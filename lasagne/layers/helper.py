@@ -152,7 +152,7 @@ def get_output(layer_or_layers, inputs=None, **kwargs):
     # track accepted kwargs used by get_output_for
     accepted_kwargs = {'deterministic'}
     # obtain topological ordering of all layers the output layer(s) depend on
-    treat_as_input = inputs.keys() if isinstance(inputs, dict) else []
+    treat_as_input = list(inputs.keys()) if isinstance(inputs, dict) else []
     all_layers = get_all_layers(layer_or_layers, treat_as_input)
     # initialize layer-to-expression mapping from all input layers
     all_outputs = dict((layer, layer.input_var)
@@ -162,7 +162,7 @@ def get_output(layer_or_layers, inputs=None, **kwargs):
     # update layer-to-expression mapping from given input(s), if any
     if isinstance(inputs, dict):
         all_outputs.update((layer, utils.as_theano_expression(expr))
-                           for layer, expr in inputs.items())
+                           for layer, expr in list(inputs.items()))
     elif inputs is not None:
         if len(all_outputs) > 1:
             raise ValueError("get_output() was called with a single input "
@@ -250,7 +250,7 @@ def get_output_shape(layer_or_layers, input_shapes=None):
     from .base import MergeLayer
     # obtain topological ordering of all layers the output layer(s) depend on
     if isinstance(input_shapes, dict):
-        treat_as_input = input_shapes.keys()
+        treat_as_input = list(input_shapes.keys())
     else:
         treat_as_input = []
 
